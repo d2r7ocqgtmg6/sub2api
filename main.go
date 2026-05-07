@@ -94,7 +94,11 @@ func handleSubscription(cfg *Config) gin.HandlerFunc {
 
 		// Token validation if configured
 		if cfg.Token != "" {
+			// Check token in query param first, then fall back to Authorization header
 			token := c.Query("token")
+			if token == "" {
+				token = c.GetHeader("Authorization")
+			}
 			if token != cfg.Token {
 				c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid token"})
 				return
