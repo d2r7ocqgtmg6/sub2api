@@ -14,7 +14,8 @@ RUN go mod download
 COPY . .
 
 # Build the binary with optimizations
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
+# Note: removed GOARCH=amd64 hardcode so cross-compilation works on arm64 hosts too
+RUN CGO_ENABLED=0 GOOS=linux go build \
     -ldflags='-w -s -extldflags "-static"' \
     -trimpath \
     -o sub2api \
