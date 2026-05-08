@@ -34,7 +34,8 @@ COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=builder /app/sub2api /sub2api
 
 # Expose the default port
-EXPOSE 8080
+# Changed from 8080 to 8088 to avoid conflicts with other local services
+EXPOSE 8088
 
 # Run as non-root user for security
 USER 65534:65534
