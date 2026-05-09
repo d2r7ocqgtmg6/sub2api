@@ -38,6 +38,10 @@ COPY --from=builder /app/sub2api /sub2api
 EXPOSE 8088
 
 # Run as non-root user for security
+# Using nobody (65534) — scratch image has no /etc/passwd so we reference by UID directly
 USER 65534:65534
+
+# Set default timezone to Asia/Shanghai for log readability
+ENV TZ=Asia/Shanghai
 
 ENTRYPOINT ["/sub2api"]
